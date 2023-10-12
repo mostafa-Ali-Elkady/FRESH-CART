@@ -9,6 +9,7 @@ AuthService;
 export class CartService {
   //properties********
   cartNumber: BehaviorSubject<number> = new BehaviorSubject(0);
+  wishlistNumber: BehaviorSubject<number> = new BehaviorSubject(0);
   cartId = new BehaviorSubject("");
   userId = this._AuthService.userId;
   baseUrl: string = `https://ecommerce.routemisr.com/api/v1/`;

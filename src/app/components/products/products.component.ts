@@ -47,6 +47,7 @@ getAllProducts(pageNum:number=1){
         this.pageSize= response.metadata.limit;
         this.currentPage= response.metadata.currentPage;
         this.total= response.results;
+        console.log(this.allProducts);
       },
     });
 }

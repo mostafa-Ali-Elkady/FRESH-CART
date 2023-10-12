@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
   // CategorySlider
   categories: Category[] = [];
   allProducts: Product[] = [];
+  allFav: Product[] = [];
   searchWord: string = "";
   constructor(
     private _productsService: productsService,
@@ -64,6 +65,14 @@ export class HomeComponent implements OnInit {
         this.allProducts = response.data;
       },
     });
+    this._CartService.getUserWishlist().subscribe({
+      next: (response) => {
+        this.allFav = response.data;
+   
+      },
+    });
+    const includesAllFav = this.allFav.every(item => this.allProducts.includes(item));
+    console.log(includesAllFav);
   }
 
    // Add To wishList

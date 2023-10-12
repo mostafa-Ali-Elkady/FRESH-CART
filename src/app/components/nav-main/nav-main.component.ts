@@ -14,6 +14,7 @@ CartService;
 export class NavMainComponent implements OnInit {
   isLogin: boolean = false;
   cartnum: number = 0;
+  wishnum: number = 0;
   cartId: any = "";
   username: string | null = "";
   constructor(
@@ -25,6 +26,11 @@ export class NavMainComponent implements OnInit {
     this._CartService.cartNumber.subscribe({
       next: (data) => {
         this.cartnum = data;
+      },
+    });
+    this._CartService.wishlistNumber.subscribe({
+      next: (data) => {
+        this.wishnum = data;
       },
     });
 

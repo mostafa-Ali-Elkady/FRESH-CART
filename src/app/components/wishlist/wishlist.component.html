@@ -1,57 +1,57 @@
 
-<section class="p-3 shadow rounded my-5 bg-color" *ngIf="wishlistProducts.length >0 ; else message">
-  <div class="d-flex justify-content-between align-items-center">
-    <div class="main-title">
-      <h2 class="txt-color">Wishlist products<i class="fa fa-heart text-danger"></i></h2>
-    </div>
-  </div>
+<!-- s -->
+<section *ngIf="wishlistProducts.length >0 ; else message">
 
-  <div
-    class="row justify-content-between wishlist-item"
-    *ngFor="let wishlistProduct of wishlistProducts"
-  >
-    <div class="col-md-2">
-      <img
-        class="w-100"
-        [src]="wishlistProduct.imageCover"
-        [alt]="wishlistProduct.title"
-        [title]="wishlistProduct.title"
-      />
-    </div>
+      <h2 class="txt-color text-center mt-4">Wishlist products<i class="fa fa-heart text-danger"></i></h2>
 
-    <div class="col-md-10 my-3 my-md-0 py-3">
-      <div class="row justify-content-between align-items-center">
-        <div class="col-8 mb-3 flex-grow-1">
-          <h4 class="txt-color h5">
-            {{ wishlistProduct.title.split(" ").slice(0, 10).join(" ") }}
-          </h4>
-          <p class="text-main fw-bold">
-            price:<span class="text-white bg-main p-1 fw-bold rounded">
-              {{ wishlistProduct.price }}</span
-            >
-          </p>
-          <button
-            #removeBtn
-            class="btn btn-danger fw-bold rounded p-1"
-            (click)="removeWishlistItem(wishlistProduct._id, removeBtn)"
-          >
-            <i class="fa fa-trash text-main mx-2"></i><span>Remove</span>
-          </button>
-        </div>
-        <div class="col-4 text-end">
-          <button
-            class="btn btn-sm btn-primary fw-bold"
-            #btn1
-            (click)="addtocart(wishlistProduct._id, btn1)"
-          >
-            Add To cart
-          </button>
-        </div>
+  <div class="row g-2 my-5">
+    <div
+      class="col-xl-2 col-lg-3 col-md-4 col-sm-6 my-2"
+      *ngFor="let wishlistProduct of wishlistProducts"
+      role="button"
+    >
+      <div class="product position-relative">
+        <a
+          [routerLink]="['/product-details', wishlistProduct?._id]"
+          class="txt-color text-decoration-none"
+        >
+          <img [src]="wishlistProduct?.imageCover" alt="wishlistProduct-image" class="w-100" />
+          <div class="content p-2">
+            <p class="text-main fw-normnal mt-3 txt-color my-0">
+              {{ wishlistProduct?.category.name }}
+            </p>
+            <h5 class="txt-color h6">
+              {{ wishlistProduct?.title?.split(" ")?.slice(0, 2)?.join(" ") }}
+            </h5>
+            <div class="d-flex justify-content-between txt-color ">
+              <span>{{ wishlistProduct.price }} EGP</span>
+              <div>
+                <i class="fa fa-star " [class.rating-color] = "wishlistProduct.ratingsAverage >= num" *ngFor="let num of [1,2,3,4,5]"></i>
+                <span>{{ wishlistProduct?.ratingsAverage }}</span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <i
+        role="a"
+        class="fa-regular fa-trash-can position-absolute remove"
+        (click)="removeWishlistItem(wishlistProduct._id)"
+        #addtowishlist
+      ></i>
+        <button
+          class="btn bg-main text-white"
+          (click)="addtocart(wishlistProduct._id, addBtn)"
+          #addBtn
+        >
+          + Add TO Cart
+        </button>
+
       </div>
     </div>
-    <hr />
   </div>
 </section>
+<!-- e -->
 <ng-template #message>
   <p class="p-5 fs-3 text-center fw-bold txt-color">Your Wishlist Is Empty</p>
   <a routerLink="/products" >
