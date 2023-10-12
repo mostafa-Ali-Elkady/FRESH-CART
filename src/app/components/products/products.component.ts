@@ -58,6 +58,7 @@ getAllProducts(pageNum:number=1){
       next: (response) => {
         this._ToastrService.success(response.message);
         this._Renderer2.setStyle(element, "color", "red");
+        console.log(response);
       },
     });
   }

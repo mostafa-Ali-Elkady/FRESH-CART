@@ -110,6 +110,14 @@ const routes: Routes = [
           ),
         title: "signup",
       },
+      {
+        path: "forgotPassword",
+        loadComponent: () =>
+          import("./components/forgot-password/forgot-password.component").then(
+            (m) => m.FrogotPasswordComponent
+          ),
+        title: "ForgotPassword",
+      },
     ],
   },
   //Not Found

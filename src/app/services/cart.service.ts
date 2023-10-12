@@ -20,13 +20,6 @@ export class CartService {
     private _AuthService: AuthService
   ) {}
 
-  // ngOnInit(): void {
-  //   this.getUserCart().subscribe({
-  //     next: (response) => {
-  //       this.cartNumber.next(response.numOfCartItems);
-  //     },
-  //   });
-  // }
 
   // Add Product To cart
   addToCart(productId: string): Observable<any> {

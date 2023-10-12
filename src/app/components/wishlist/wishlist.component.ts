@@ -23,7 +23,6 @@ export class WishlistComponent {
     this._CartService.getUserWishlist().subscribe({
       next: (response) => {
         this.wishlistProducts = response.data;
-        console.log(this.wishlistProducts);
       },
     });
   }

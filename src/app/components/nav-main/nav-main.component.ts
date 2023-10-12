@@ -25,7 +25,6 @@ export class NavMainComponent implements OnInit {
     this._CartService.cartNumber.subscribe({
       next: (data) => {
         this.cartnum = data;
-        console.log(this.cartnum);
       },
     });
 
@@ -48,12 +47,12 @@ export class NavMainComponent implements OnInit {
     });
   }
   logOut() {
+    this._CartService.emptyCart().subscribe({
+      next: (response) => {
+        this._CartService.cartNumber.next(response.numOfCartItems);
+      },
+    });
     this._AuthService.logOut();
-    // this._CartService.emptyCart().subscribe({
-    //   next: (response) => {
-    //     this._CartService.cartNumber.next(response.numOfCartItems);
-    //   },
-    // });
   }
 
   toggleMode() {

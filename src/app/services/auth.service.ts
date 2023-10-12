@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import jwtDecode from "jwt-decode";
 import { Observable, BehaviorSubject } from "rxjs";
-import { __values } from "tslib";
 
 @Injectable({
   providedIn: "root",
