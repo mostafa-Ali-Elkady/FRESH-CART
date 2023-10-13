@@ -4,7 +4,7 @@
 
       <h2 class="txt-color text-center mt-4">Wishlist products<i class="fa fa-heart text-danger"></i></h2>
 
-  <div class="row g-2 my-5">
+  <div class="row g-2 my-5 justify-content-center">
     <div
       class="col-xl-2 col-lg-3 col-md-4 col-sm-6 my-2"
       *ngFor="let wishlistProduct of wishlistProducts"
@@ -18,13 +18,13 @@
           <img [src]="wishlistProduct?.imageCover" alt="wishlistProduct-image" class="w-100" />
           <div class="content p-2">
             <p class="text-main fw-normnal mt-3 txt-color my-0">
-              {{ wishlistProduct?.category.name }}
+              {{ wishlistProduct?.category?.name }}
             </p>
             <h5 class="txt-color h6">
               {{ wishlistProduct?.title?.split(" ")?.slice(0, 2)?.join(" ") }}
             </h5>
-            <div class="d-flex justify-content-between txt-color ">
-              <span>{{ wishlistProduct.price }} EGP</span>
+            <div class="d-flex justify-content-between txt-color font-sm" >
+              <span>{{ wishlistProduct?.price }} EGP</span>
               <div>
                 <i class="fa fa-star " [class.rating-color] = "wishlistProduct.ratingsAverage >= num" *ngFor="let num of [1,2,3,4,5]"></i>
                 <span>{{ wishlistProduct?.ratingsAverage }}</span>
@@ -40,7 +40,7 @@
         #addtowishlist
       ></i>
         <button
-          class="btn bg-main text-white"
+          class="btn bg-main text-white mb-2"
           (click)="addtocart(wishlistProduct._id, addBtn)"
           #addBtn
         >

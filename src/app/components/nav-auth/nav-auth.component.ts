@@ -26,7 +26,13 @@ export class NavAuthComponent {
         }
       }
     })
-    
+        //Navbar icon handle
+        this._Renderer2.listen('body', 'click', ()=> {
+          const nav = document.querySelector(".navbar-collapse");
+          if(nav?.classList.contains('show')) {
+            this._Renderer2.removeClass(nav, 'show')
+          }
+        })
   }
   logOut() {
     this._AuthService.logOut()

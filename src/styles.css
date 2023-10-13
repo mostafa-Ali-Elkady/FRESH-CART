@@ -48,24 +48,17 @@ body.light-mode {
     linear-gradient(145deg, #e81cff, #40c9ff) border-box;
   border: 1px solid transparent;
   border-radius: 5px;
-  min-height: 460px;
+  padding-bottom: 1rem;
   transition: transform 0.5s;
 }
 .product .btn {
-  transform: translateY(100%);
-  opacity: 0;
-  transition: opacity 0.5s, transform 0.5s;
-  margin: 0.8rem auto;
+  margin: 0.8rem auto 0px;
   display: block;
 }
 .product:hover {
   border-color: var(--main-color);
   box-shadow: 0 0 4px 0 var(--main-color);
   transform: scale(1.02);
-}
-.product:hover .btn {
-  transform: translateY(0);
-  opacity: 1;
 }
 .rating-color {
   color: var(--rating-color) !important;

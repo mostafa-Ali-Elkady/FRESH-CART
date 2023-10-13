@@ -19,29 +19,25 @@ export class WishlistComponent {
   wishlist: any = null;
   wishlistId: any = "";
   wishlistProducts: any[] = [];
-  wishlistnum:number=0
+  wishlistnum: number = 0;
   ngOnInit(): void {
     this._CartService.getUserWishlist().subscribe({
       next: (response) => {
         this.wishlistProducts = response.data;
         this._CartService.wishlistNumber.next(response.count);
-        console.log(response);
       },
     });
   }
 
   // remove wishlist item
-  removeWishlistItem(id: string) {
+  removeWishlistItem(id: string | undefined) {
     this._CartService.removeWishlistItem(id).subscribe({
       next: (response) => {
-        console.log(response);
         this.wishlistProducts = response.data;
-        // this._ToastrService.success(response.message);
-        console.log("delete", this.wishlistProducts);
+        this._ToastrService.success(response.message);
         this._CartService.getUserWishlist().subscribe({
           next: (response) => {
             this.wishlistProducts = response.data;
-            console.log(this.wishlistProducts);
           },
         });
       },
@@ -52,7 +48,6 @@ export class WishlistComponent {
     this._Renderer2.setAttribute(element, "disabled", "true");
     this._CartService.addToCart(productId).subscribe({
       next: (response) => {
-        console.log(response);
         this._ToastrService.success(response.message);
         this._CartService.cartNumber.next(response.numOfCartItems);
         this._Renderer2.removeAttribute(element, "disabled");

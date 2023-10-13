@@ -3,7 +3,7 @@ import { AuthService } from "src/app/services/auth.service";
 import { CommonModule } from "@angular/common";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { CartService } from "src/app/services/cart.service";
-CartService;
+
 @Component({
   selector: "app-nav-main",
   standalone: true,
@@ -51,6 +51,14 @@ export class NavMainComponent implements OnInit {
         this.username = data;
       },
     });
+
+    //Navbar icon handle
+    this._Renderer2.listen('body', 'click', ()=> {
+      const nav = document.querySelector(".navbar-collapse");
+      if(nav?.classList.contains('show')) {
+        this._Renderer2.removeClass(nav, 'show')
+      }
+    })
   }
   logOut() {
     this._CartService.emptyCart().subscribe({

@@ -49,7 +49,7 @@ export class CartService {
     return this._HttpClient.get(this.baseUrl + `wishlist`);
   }
   // remove cart item
-  removeWishlistItem(productId: string): Observable<any> {
+  removeWishlistItem(productId: string|undefined): Observable<any> {
     return this._HttpClient.delete(this.baseUrl + `wishlist/${productId}`);
   }
 

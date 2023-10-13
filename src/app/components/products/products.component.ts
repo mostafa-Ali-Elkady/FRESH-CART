@@ -18,7 +18,6 @@ import { NgxPaginationModule } from "ngx-pagination";
     FormsModule,
     SearchPipe,
     NgxPaginationModule,
-
   ],
   templateUrl: "./products.component.html",
   styleUrls: ["./products.component.css"],
@@ -32,26 +31,32 @@ export class ProductsComponent implements OnInit {
   ) {}
   allProducts: Product[] = [];
   searchWord: string = "";
-  pageSize:number=0;
-  currentPage:number=0;
-  total:number=0;
-
+  pageSize: number = 0;
+  currentPage: number = 0;
+  total: number = 0;
+  wishlistData: string[] = [];
   ngOnInit(): void {
-this.getAllProducts()
-  }
-//Get All Products
-getAllProducts(pageNum:number=1){
-      this._productsService.getAllProducts(pageNum).subscribe({
+    this.getAllProducts();
+    this._CartService.getUserWishlist().subscribe({
       next: (response) => {
-        this.allProducts = response.data;
-        this.pageSize= response.metadata.limit;
-        this.currentPage= response.metadata.currentPage;
-        this.total= response.results;
-        console.log(this.allProducts);
+        const newData = response.data.map((item: any) => {
+          return item._id;
+        });
+        this.wishlistData = newData;
       },
     });
-}
-
+  }
+  //Get All Products
+  getAllProducts(pageNum: number = 1) {
+    this._productsService.getAllProducts(pageNum).subscribe({
+      next: (response) => {
+        this.allProducts = response.data;
+        this.pageSize = response.metadata.limit;
+        this.currentPage = response.metadata.currentPage;
+        this.total = response.results;
+      },
+    });
+  }
 
   // Add To wishList
   addToWishlist(productId: string, element: HTMLElement) {
@@ -59,7 +64,8 @@ getAllProducts(pageNum:number=1){
       next: (response) => {
         this._ToastrService.success(response.message);
         this._Renderer2.setStyle(element, "color", "red");
-        console.log(response);
+        this._CartService.wishlistNumber.next(response.data.length)
+        this.wishlistData= response.data;
       },
     });
   }
@@ -78,10 +84,9 @@ getAllProducts(pageNum:number=1){
       },
     });
   }
-// Pagination Method
-pageChanged(event:any):void{
-console.log(event);
-this.getAllProducts(event)
-}
-
+  // Pagination Method
+  pageChanged(event: any): void {
+    console.log(event);
+    this.getAllProducts(event);
+  }
 }

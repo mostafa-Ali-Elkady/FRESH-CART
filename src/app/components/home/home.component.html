@@ -88,13 +88,13 @@
         >
           <img [src]="product?.imageCover" alt="product-image" class="w-100" />
           <div class="content p-2">
-            <p class="text-main fw-normnal mt-3 txt-color my-0">
+            <p class="text-main fw-normnal  txt-color my-0">
               {{ product.category.name }}
             </p>
             <h5 class="txt-color h6">
               {{ product?.title?.split(" ")?.slice(0, 2)?.join(" ") }}
             </h5>
-            <div class="d-flex justify-content-between txt-color">
+            <div class="d-flex justify-content-between txt-color font-sm">
               <span>{{ product.price }} EGP</span>
               <div>
                 <i class="fa fa-star txt-color" [class.rating-color] = "product.ratingsAverage >= num" *ngFor="let num of [1,2,3,4,5]"></i>
@@ -112,8 +112,9 @@
         </button>
         <i
           role="a"
-          class="fa-solid fa-heart position-absolute loveIcon txt-color"
+          class="fa-solid fa-heart position-absolute loveIcon "
           (click)="addToWishlist(product._id, addtowishlist)"
+         [ngClass]="{'text-danger': wishlistData.includes(product._id)}"
           #addtowishlist
         ></i>
       </div>

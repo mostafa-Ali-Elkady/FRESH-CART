@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
   // CategorySlider
   categories: Category[] = [];
   allProducts: Product[] = [];
-  allFav: Product[] = [];
+  wishlistData: string[] = [];
   searchWord: string = "";
   constructor(
     private _productsService: productsService,
@@ -67,37 +67,35 @@ export class HomeComponent implements OnInit {
     });
     this._CartService.getUserWishlist().subscribe({
       next: (response) => {
-        this.allFav = response.data;
-   
+       const newData= response.data.map((item:any)=> {
+      return  item._id
+  
+       }) 
+       this.wishlistData= newData;
       },
     });
-    const includesAllFav = this.allFav.every(item => this.allProducts.includes(item));
-    console.log(includesAllFav);
+  
+    // }
+
   }
 
    // Add To wishList
   addToWishlist(productId: string, element:HTMLElement ) {
     this._CartService.addToWishlist(productId).subscribe({
       next: (response) => {
-        console.log(response);
         this._ToastrService.success(response.message);
         this._Renderer2.setStyle(element, "color", "red");
+        this._CartService.wishlistNumber.next(response.data.length)
+        this.wishlistData= response.data;
       },
     });
   }
 // Add to cart
 addToCart(productId: string, element: HTMLButtonElement) {
-  this._Renderer2.setAttribute(element, "disabled", "true");
   this._CartService.addToCart(productId).subscribe({
     next: (response) => {
-      console.log(response);
       this._ToastrService.success(response.message);
       this._CartService.cartNumber.next(response.numOfCartItems);
-      this._Renderer2.removeAttribute(element, "disabled");
-
-    },
-    error: (err) => {
-      this._Renderer2.removeAttribute(element, "disabled");
     },
   });
 }

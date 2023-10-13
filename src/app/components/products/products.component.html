@@ -24,6 +24,7 @@
   </pagination-controls>
     </div>
     <!-- Pagination -->
+
   <div class="row g-2 my-5">
     <div
       class="col-xl-2 col-lg-3 col-md-4 col-sm-6 my-2"
@@ -46,7 +47,7 @@
             <h5 class="txt-color h6">
               {{ product?.title?.split(" ")?.slice(0, 2)?.join(" ") }}
             </h5>
-            <div class="d-flex justify-content-between txt-color">
+            <div class="d-flex justify-content-between txt-color font-sm">
               <span>{{ product.price }} EGP</span>
               <div>
                 <i class="fa fa-star " [class.rating-color] = "product.ratingsAverage >= num" *ngFor="let num of [1,2,3,4,5]"></i>
@@ -57,7 +58,7 @@
         </a>
 
         <button
-          class="btn bg-main text-white"
+          class="btn bg-main text-white "
           (click)="addToCart(product._id, addBtn)"
           #addBtn
         >
@@ -65,8 +66,9 @@
         </button>
         <i
           role="a"
-          class="fa-solid fa-heart position-absolute loveIcon"
+          class="fa-solid fa-heart position-absolute loveIcon "
           (click)="addToWishlist(product._id, addtowishlist)"
+         [ngClass]="{'text-danger': wishlistData.includes(product._id)}"
           #addtowishlist
         ></i>
       </div>
